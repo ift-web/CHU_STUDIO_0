@@ -167,6 +167,7 @@ body.cursor-hover .cursor-ring { width:48px; height:48px; opacity:.2; }
   background:rgba(18,16,14,.97);
   backdrop-filter:blur(6px);
   display:none; flex-direction:column;
+  height:100%; height:100dvh;
 }
 .lightbox.open { display:flex; }
 
@@ -195,28 +196,39 @@ body.cursor-hover .cursor-ring { width:48px; height:48px; opacity:.2; }
 }
 .lb-close-btn:hover { background:var(--warm); color:var(--ink); border-color:var(--warm); }
 
-.lb-body {
-  flex:1; display:flex; align-items:stretch; overflow:hidden; min-height:0;
+.lb-stage {
+  flex:1;
+  display:flex;
+  align-items:stretch;
+  overflow:hidden;
+  position:relative;
 }
-.lb-img-wrap {
-  flex:1; display:flex; align-items:center; justify-content:center;
-  padding:28px 80px; position:relative; overflow:hidden;
+/* The image center zone */
+.lb-img-center {
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:24px 0;
 }
-.lb-img-wrap img {
-  max-width:100%; max-height:100%;
-  object-fit:contain; display:block;
-  /* pointer-events allowed so image renders properly */
+.lb-img-center img {
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
 }
 
 .lb-nav {
-  position:absolute; top:0; bottom:0; width:72px;
+  width:64px;
+  flex-shrink:0;
   display:flex; align-items:center; justify-content:center;
   cursor:none; background:transparent; border:none;
-  transition:background .2s; z-index:2;
+  transition:background .2s;
 }
 .lb-nav:hover { background:rgba(18,16,14,.5); }
-.lb-nav.prev { left:0; }
-.lb-nav.next { right:0; }
 .lb-nav-arrow {
   font-family:'Cormorant Garamond', serif;
   font-size:26px; color:rgba(245,241,235,.2);
@@ -288,10 +300,12 @@ body.cursor-hover .cursor-ring { width:48px; height:48px; opacity:.2; }
   .page-footer { flex-direction:column; gap:8px; text-align:center; }
 
   /* Lightbox mobile */
+  .lb-img-center { padding:12px 0; }
   .lb-topbar { padding:0 16px; height:50px; }
   .lb-topbar-title { display:none; }
   .lb-info { display:none; }
-  .lb-img-wrap { padding:12px 52px; }
+  .lb-img-wrap { padding:12px 48px; }
+  .lb-img-wrap img { max-width:calc(100% - 96px); max-height:calc(100vh - 50px - 48px); }
   .lb-nav { width:48px; }
   .lb-close-btn { padding:6px 14px; }
 }
@@ -343,12 +357,12 @@ body.cursor-hover .cursor-ring { width:48px; height:48px; opacity:.2; }
     </div>
     <button class="lb-close-btn" id="lb-close">關閉 ✕</button>
   </div>
-  <div class="lb-body">
-    <div class="lb-img-wrap" id="lb-img-wrap">
-      <button class="lb-nav prev" id="lb-prev"><span class="lb-nav-arrow">‹</span></button>
-      <img id="lb-img" src="" alt="" style="pointer-events:none;">
-      <button class="lb-nav next" id="lb-next"><span class="lb-nav-arrow">›</span></button>
+  <div class="lb-stage" id="lb-stage">
+    <button class="lb-nav prev" id="lb-prev"><span class="lb-nav-arrow">‹</span></button>
+    <div class="lb-img-center">
+      <img id="lb-img" src="" alt="">
     </div>
+    <button class="lb-nav next" id="lb-next"><span class="lb-nav-arrow">›</span></button>
     <div class="lb-info">
       <div>
         <div class="lb-info-num" id="lb-info-num"></div>
@@ -488,8 +502,8 @@ document.getElementById('lb-prev').addEventListener('click', () => navigate(-1))
 document.getElementById('lb-next').addEventListener('click', () => navigate(1));
 
 // Click blank area to close
-document.getElementById('lb-img-wrap').addEventListener('click', e => {
-  if (e.target === document.getElementById('lb-img-wrap')) closeLightbox();
+document.getElementById('lb-stage').addEventListener('click', e => {
+  if (e.target === document.getElementById('lb-stage')) closeLightbox();
 });
 
 // Keyboard
@@ -502,8 +516,8 @@ document.addEventListener('keydown', e => {
 
 // Touch swipe
 let tx = 0;
-document.getElementById('lb-img-wrap').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
-document.getElementById('lb-img-wrap').addEventListener('touchend', e => {
+document.getElementById('lb-stage').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+document.getElementById('lb-stage').addEventListener('touchend', e => {
   const dx = e.changedTouches[0].clientX - tx;
   if (Math.abs(dx) > 48) navigate(dx < 0 ? 1 : -1);
 });
