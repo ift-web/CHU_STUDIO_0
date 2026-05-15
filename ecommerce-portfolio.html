@@ -132,6 +132,7 @@
     padding: 0 3rem 4rem;
     columns: 2;
     column-gap: 2px;
+    overflow: hidden;
   }
   @media (max-width: 700px) {
     .gallery { columns: 1; padding: 0 1rem 3rem; }
@@ -339,7 +340,7 @@
   <button class="filter-btn" onclick="filterItems('lifestyle', this)">情境</button>
   <button class="filter-btn" onclick="filterItems('mobile', this)">Mobile</button>
 </div>
-<div class="count-badge"><span id="count">14</span> 張作品</div>
+<div id="count" style="display:none"></div>
 <div class="gallery" id="gallery"></div>
 <footer>
   <div class="footer-logo">初<span> Studio</span> · 電商視覺設計</div>
