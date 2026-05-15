@@ -1577,7 +1577,7 @@ function openWorkModal(key) {
   }
 
   var gridHtml = '';
-  var linkHtml = data.link ? '<div class="work-modal-divider"></div><div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 4px;"><span class="work-modal-section-title" style="margin:0;">View Full Project</span><a href="' + data.link + '" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--stone);padding:8px 16px;text-decoration:none;transition:background .2s,color .2s;" onmouseover="this.style.background=\'var(--ink)\';this.style.color=\'var(--paper)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--ink)\'">Open &#8599;</a></div>' : '';
+  var linkHtml = data.link ? '<div class="work-modal-divider"></div><div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0 4px;"><span class="work-modal-section-title" style="margin:0;">View Full Project</span><a href="' + data.link + '" target="_blank" style="display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);border:1px solid var(--stone);padding:8px 16px;text-decoration:none;transition:background .2s,color .2s;" onmouseover="this.style.background=\'var(--ink)\';this.style.color=\'var(--paper)\'" onmouseout="this.style.background=\'transparent\';this.style.color=\'var(--ink)\'"><span style="font-family:monospace;font-size:13px;">&#x2197;</span></a></div>' : '';
   if (data.customHTML) {
     gridHtml = buildNenneScreens();
   } else if (data.gridImgs && data.gridImgs.length) {
