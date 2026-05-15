@@ -1577,7 +1577,7 @@ function openWorkModal(key) {
   }
 
   var gridHtml = '';
-  var linkHtml = data.link ? '<div class="work-modal-divider"></div><div style="padding:20px 0 4px;"><a href="' + data.link + '" target="_blank" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--stone);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color=\'var(--ink)\';this.style.borderColor=\'var(--ink)\'" onmouseout="this.style.color=\'var(--mid)\';this.style.borderColor=\'var(--stone)\'">View Full Project</a></div>' : '';
+  var linkHtml = data.link ? '<div class="work-modal-divider"></div><div style="padding:24px 0 8px;"><a href="' + data.link + '" target="_blank" style="font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);text-decoration:none;border-bottom:1px solid var(--stone);padding-bottom:2px;transition:color .2s,border-color .2s;" onmouseover="this.style.color=\'var(--ink)\';this.style.borderColor=\'var(--ink)\'" onmouseout="this.style.color=\'var(--mid)\';this.style.borderColor=\'var(--stone)\'">View Full Project &nbsp;&#45;&#45;></a></div>' : '';
   if (data.customHTML) {
     gridHtml = buildNenneScreens();
   } else if (data.gridImgs && data.gridImgs.length) {
