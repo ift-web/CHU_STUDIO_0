@@ -27,6 +27,9 @@
     font-family: 'IBM Plex Mono', monospace;
     cursor: none;
     overflow-x: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
   }
 
   /* Custom cursor */
@@ -730,17 +733,21 @@
     setTimeout(() => el.classList.add('visible'), 200 + i * 150);
   });
 
-  // 圖片版權保護
-  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
-  document.addEventListener('dragstart', function(e) { if (e.target.tagName === 'IMG') e.preventDefault(); });
-  document.querySelectorAll('img').forEach(function(img) {
-    img.setAttribute('draggable', 'false');
-    img.style.userSelect = 'none';
-    img.style.webkitUserSelect = 'none';
-    img.style.pointerEvents = 'none';
-  });
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'u')) e.preventDefault();
+  // 防右鍵
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // 防拖曳圖片
+  document.addEventListener('dragstart', e => e.preventDefault());
+
+  // 防複製文字
+  document.addEventListener('copy', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+
+  // 防 Ctrl/Cmd + C / S / U
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && ['c','s','u','a'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+    }
   });
 </script>
 
