@@ -142,6 +142,9 @@
     .divider { width: calc(100% - 3rem); margin: 0 1.5rem; }
     .lightbox-info { width: 0; overflow: hidden; padding: 0; border: none; }
     .lightbox-nav.next { right: 0; }
+    .lightbox-close { display: none; }
+    .lightbox-inner { flex-direction: column; }
+    .lb-mobile-bar { display: flex !important; }
   }
   .gallery-item {
     break-inside: avoid;
@@ -254,6 +257,41 @@
     letter-spacing: 0.15em;
     color: rgba(245,242,236,0.25);
   }
+  .lb-mobile-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.2rem;
+    height: 3.2rem;
+    flex-shrink: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: rgba(13,13,13,0.6);
+    width: 100%;
+  }
+  .lb-mobile-counter {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.4);
+  }
+  .lb-mobile-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: rgba(245,242,236,0.6);
+    letter-spacing: 0.05em;
+  }
+  .lb-mobile-close {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(245,242,236,0.8);
+    font-size: 0.85rem;
+    width: 2.4rem; height: 2.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .lb-mobile-close:active { background: var(--seal); border-color: var(--seal); color: #fff; }
   .lightbox-close {
     position: absolute;
     top: 0; right: 0;
@@ -348,6 +386,11 @@
 </footer>
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <div class="lightbox-inner">
+    <div class="lb-mobile-bar">
+      <span class="lb-mobile-counter" id="lb-mobile-counter"></span>
+      <span class="lb-mobile-title" id="lb-mobile-title"></span>
+      <button class="lb-mobile-close" onclick="closeLightboxDirect()">✕</button>
+    </div>
     <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
     <button class="lightbox-nav prev" onclick="navigate(-1)">‹</button>
     <div class="lightbox-img-wrap">
@@ -431,6 +474,8 @@ function updateLightbox() {
   document.getElementById('lb-subtitle').textContent = item.subtitle;
   document.getElementById('lb-usage').textContent = item.usage;
   document.getElementById('lb-counter').textContent = pos + ' / ' + visibleIndices.length;
+  document.getElementById('lb-mobile-counter').textContent = pos + ' / ' + visibleIndices.length;
+  document.getElementById('lb-mobile-title').textContent = (item.title.split('｜')[1] || item.title);
 }
 
 function navigate(dir) {
