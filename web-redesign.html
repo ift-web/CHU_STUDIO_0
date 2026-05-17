@@ -421,6 +421,11 @@ body.cursor-hover .cursor-ring { width:48px; height:48px; opacity:.2; }
 </footer>
 
 <script>
+// Protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+
 // Cursor
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
@@ -437,6 +442,11 @@ window.addEventListener('scroll',()=>{ header.classList.toggle('scrolled', windo
 // Scroll reveal
 const obs = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+<script>
+document.addEventListener("contextmenu",e=>e.preventDefault());
+document.addEventListener("selectstart",e=>e.preventDefault());
+document.addEventListener("copy",e=>e.preventDefault());
 </script>
 </body>
 </html>
